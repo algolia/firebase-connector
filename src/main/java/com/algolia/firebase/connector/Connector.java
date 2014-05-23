@@ -10,14 +10,22 @@ public class Connector {
 	private DocManager[] listeners;
 	
 	public Connector() {
-		String[] params = App.getMapping().split(",");
-		tables = new Firebase[params.length];
-		listeners = new DocManager[params.length];
-		App.logger.info("Listen " + params.length + " values");
-		for (int i = 0; i < params.length; ++i) {
-			App.logger.info("Listen " + params[i]);
-			tables[i] = new Firebase(App.getFirebaseURL() + "/" + params[i]);
-			listeners[i] = new Algolia(params[i].replace("/", "_"));//TODO
+		String[] url = App.getMapping().split(",");
+		String[] params = null;
+		if (App.getDocManagerParam() != null) {
+			params = App.getDocManagerParam().split(",");
+		}
+		tables = new Firebase[url.length];
+		listeners = new DocManager[url.length];
+		App.logger.info("Listen " + url.length + " values");
+		for (int i = 0; i < url.length; ++i) {
+			App.logger.info("Listen " + url[i]);
+			tables[i] = new Firebase(App.getFirebaseURL() + "/" + url[i]);
+			if (params != null) {
+				listeners[i] = new Algolia(params[i]);//TODO
+			} else {
+				listeners[i] = new Algolia();//TODO
+			}
 		}
 	}
 

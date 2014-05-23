@@ -18,6 +18,7 @@ public class App
 	
 	public static final String CONF_URL = "url";
 	public static final String CONF_TO = "to";
+	public static final String CONF_DOCMANAGER_PARAM = "param";
 	public static final String CONF_MAPPING = "mapping";
 	public static final String CONF_INITIAL_IMPORT = "initialImport";
 	public static final String CONF_COMMIT_DELAY = "commitDelay";
@@ -33,6 +34,7 @@ public class App
 		options.addOption(null, CONF_MAPPING, true, "mapping for the doc manager");
 		options.addOption(null, CONF_INITIAL_IMPORT, false, "begin with a initial import");
 		options.addOption(null, CONF_COMMIT_DELAY, true, "delay between two commit");
+		options.addOption(null, CONF_DOCMANAGER_PARAM, true, "extra parametter for the doc manager");
 	}
 	
 	public static String getFirebaseURL() {
@@ -41,6 +43,10 @@ public class App
 	
 	public static String getDocManagerUrl() {
 		return configuration.get(CONF_TO);
+	}
+	
+	public static String getDocManagerParam() {
+		return configuration.get(CONF_DOCMANAGER_PARAM);
 	}
 	
 	public static String getMapping() {
@@ -60,6 +66,7 @@ public class App
 		configuration.put(CONF_MAPPING, cli.getOptionValue(CONF_MAPPING));
 		configuration.put(CONF_INITIAL_IMPORT, cli.hasOption(CONF_INITIAL_IMPORT) ? "true" : null);
 		configuration.put(CONF_COMMIT_DELAY, cli.getOptionValue(CONF_COMMIT_DELAY) != null ? cli.getOptionValue(CONF_COMMIT_DELAY) : "5");
+		configuration.put(CONF_DOCMANAGER_PARAM, cli.getOptionValue(CONF_DOCMANAGER_PARAM));
 	}
 	
     public static void main( String[] args )
