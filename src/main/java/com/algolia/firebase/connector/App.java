@@ -96,7 +96,7 @@ public class App
     	logger.info("Initialize");
     	Long delay = Long.parseLong(configuration.get(CONF_COMMIT_DELAY));
     	Connector connector = new Connector();
-    	if (configuration.containsKey(CONF_INITIAL_IMPORT)) {
+    	if (configuration.get(CONF_INITIAL_IMPORT) != null) {
     		connector.initialImport();
     	}
     	connector.listen();
