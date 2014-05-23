@@ -16,6 +16,7 @@ public class Algolia extends DocManager {
 	APIClient client;
 	Index index;
 	ArrayList<JSONObject> batch;
+	private static int id = 0; 
 	
 	public Algolia(String indexName) {
 		String[] credentials = App.getDocManagerUrl().split(":");
@@ -23,6 +24,10 @@ public class Algolia extends DocManager {
 		client = new APIClient(credentials[0], credentials[1]);
 		index = client.initIndex(indexName);
 		batch = new ArrayList<>();
+	}
+	
+	public Algolia() {
+		this("firebase" + ++id);
 	}
 	
 	private JSONObject convertToJSON(Object value) {
@@ -63,6 +68,9 @@ public class Algolia extends DocManager {
 
 	@Override
 	public void commit() {
+		if (batch.size() == 0) {
+			return;
+		}
 		try {
 			index.batch(batch);
 			batch.clear();
