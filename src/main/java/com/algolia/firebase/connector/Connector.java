@@ -14,6 +14,7 @@ public class Connector {
 		String[] params = null;
 		if (App.getDocManagerParam() != null) {
 			params = App.getDocManagerParam().split(",");
+			assert(params.length == url.length);
 		}
 		tables = new Firebase[url.length];
 		listeners = new DocManager[url.length];
